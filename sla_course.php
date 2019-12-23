@@ -2,7 +2,7 @@
 /**
  * Plugin Name:       SLA Course
  * Description:       Useful site tweaks for hosting training course materials
- * Version:           0.0.3
+ * Version:           0.0.7
  * Author:            Al McNicoll
  * Author URI:        http://almcnicoll.co.uk
  * Text Domain:       sla-course
@@ -16,7 +16,7 @@
  * Plugin constants
  */
 if(!defined('SLACOURSE_PLUGIN_VERSION'))
-	define('SLACOURSE_PLUGIN_VERSION', '0.0.3');
+	define('SLACOURSE_PLUGIN_VERSION', '0.0.7');
 if(!defined('SLACOURSE_URL'))
 	define('SLACOURSE_URL', plugin_dir_url( __FILE__ ));
 if(!defined('SLACOURSE_PATH'))
@@ -42,6 +42,18 @@ function menu_function($atts, $content = null) {
 		  'echo' => false
 		  )
 	);
+}
+
+function custom_styles_and_scripts() {
+	
+	//wp_register_style( SLACOURSE_TEXTDOMAIN, plugins_url('added.css',__FILE__ ) );
+	wp_register_style( SLACOURSE_TEXTDOMAIN, plugins_url('assets/css/added.css',__FILE__ ) );
+	//wp_register_style( SLACOURSE_TEXTDOMAIN, '/css/added.css' );
+	wp_enqueue_style(SLACOURSE_TEXTDOMAIN);
+	
+	//wp_register_style( 'namespace', 'http://locationofcss.com/mycss.css' );
+	//wp_enqueue_style( 'namespace' );
+	//wp_enqueue_script( 'namespaceformyscript', 'http://locationofscript.com/myscript.js', array( 'jquery' ) );
 }
 
 /*
@@ -79,6 +91,9 @@ class sla_course
 
 		// Add menu shortcode
 		add_shortcode('menu', 'menu_function');
+		
+		// Add custom CSS
+		add_action('wp_enqueue_scripts', 'custom_styles_and_scripts');
 
 	}
 	
@@ -194,7 +209,7 @@ class sla_course
 
             <h1><?php _e('Salt & Light Advance Course Settings', SLACOURSE_TEXTDOMAIN); ?></h1>
 
-			<h2>No settings currently available</h2>
+			<h2>Version <?php echo SLACOURSE_PLUGIN_VERSION; ?></h2>
 
             <form id="sla_course-admin-form" class="postbox">
 <!--
