@@ -2,7 +2,7 @@
 /**
  * Plugin Name:       SLA Course
  * Description:       Useful site tweaks for hosting training course materials
- * Version:           0.0.8
+ * Version:           0.0.11
  * Author:            Al McNicoll
  * Author URI:        http://almcnicoll.co.uk
  * Text Domain:       sla-course
@@ -16,7 +16,7 @@
  * Plugin constants
  */
 if(!defined('SLACOURSE_PLUGIN_VERSION'))
-	define('SLACOURSE_PLUGIN_VERSION', '0.0.8');
+	define('SLACOURSE_PLUGIN_VERSION', '0.0.11');
 if(!defined('SLACOURSE_URL'))
 	define('SLACOURSE_URL', plugin_dir_url( __FILE__ ));
 if(!defined('SLACOURSE_PATH'))
@@ -26,36 +26,6 @@ if(!defined('SLACOURSE_PROTOCOL'))
 if(!defined('SLACOURSE_TEXTDOMAIN'))
 	define('SLACOURSE_TEXTDOMAIN', 'sla-course');
 	
-/**
-Filters etc.
-**/
-function menu_function($atts, $content = null) {
-	extract(
-	  shortcode_atts(
-		 array( 'name' => null, ),
-		 $atts
-	  )
-	);
-	return wp_nav_menu(
-	  array(
-		  'menu' => $name,
-		  'echo' => false
-		  )
-	);
-}
-
-function custom_styles_and_scripts() {
-	
-	//wp_register_style( SLACOURSE_TEXTDOMAIN, plugins_url('added.css',__FILE__ ) );
-	wp_register_style( SLACOURSE_TEXTDOMAIN, plugins_url('assets/css/added.css',__FILE__ ) );
-	//wp_register_style( SLACOURSE_TEXTDOMAIN, '/css/added.css' );
-	wp_enqueue_style(SLACOURSE_TEXTDOMAIN);
-	
-	//wp_register_style( 'namespace', 'http://locationofcss.com/mycss.css' );
-	//wp_enqueue_style( 'namespace' );
-	//wp_enqueue_script( 'namespaceformyscript', 'http://locationofscript.com/myscript.js', array( 'jquery' ) );
-}
-
 /*
  * Main class
  */
@@ -88,11 +58,54 @@ class sla_course
 		add_action('admin_enqueue_scripts',     array($this,'addAdminScripts'));
 
 		// Add menu shortcode
-		add_shortcode('menu', 'menu_function');
+		add_shortcode('menu', array($this, 'menu_function'));
 		
 		// Add custom CSS
-		add_action('wp_enqueue_scripts', 'custom_styles_and_scripts');
+		//add_action('wp_enqueue_scripts', 'custom_styles_and_scripts');
+		add_action('wp_enqueue_scripts', array($this, 'conditionalStyle'));
 
+	}
+	
+	/**
+	Filters etc.
+	**/
+	public function menu_function($atts, $content = null) {
+		extract(
+		  shortcode_atts(
+			 array( 'name' => null, ),
+			 $atts
+		  )
+		);
+		return wp_nav_menu(
+		  array(
+			  'menu' => $name,
+			  'echo' => false
+			  )
+		);
+	}
+
+	public function custom_styles_and_scripts() {
+		//wp_register_style( SLACOURSE_TEXTDOMAIN, plugins_url('added.css',__FILE__ ) );
+		wp_register_style( SLACOURSE_TEXTDOMAIN, plugins_url('assets/css/added.css',__FILE__ ) );
+		//wp_register_style( SLACOURSE_TEXTDOMAIN, '/css/added.css' );
+		wp_enqueue_style(SLACOURSE_TEXTDOMAIN);
+		
+		//wp_register_style( 'namespace', 'http://locationofcss.com/mycss.css' );
+		//wp_enqueue_style( 'namespace' );
+		//wp_enqueue_script( 'namespaceformyscript', 'http://locationofscript.com/myscript.js', array( 'jquery' ) );
+	}
+
+	public function conditionalStyle() {
+		global $post;
+		//Kint::dump($post);
+		if ( is_page() ) {
+			if (has_category('course', $post->ID)) {
+				//Kint::dump("{$post->ID} is a course");
+				$this->custom_styles_and_scripts();
+			} else {
+				//Kint::dump("{$post->ID} not a course");
+			}
+		}
 	}
 	
 	/**
