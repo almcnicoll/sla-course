@@ -34,3 +34,13 @@ article .wp-block-columns p, article .wp-block-themeisle-blocks-advanced-columns
     background-color: #ddd /*#9c27b0*/;
     color: #000 /*#fff*/;
 }
+
+article .wp-block-file {
+    display: inline;
+    margin-right: 8px;
+    white-space: nowrap;
+}
+article .wp-block-file a {
+    break-inside: avoid;
+    white-space: nowrap;
+}

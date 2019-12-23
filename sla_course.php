@@ -2,7 +2,7 @@
 /**
  * Plugin Name:       SLA Course
  * Description:       Useful site tweaks for hosting training course materials
- * Version:           0.0.12
+ * Version:           0.0.13
  * Author:            Al McNicoll
  * Author URI:        http://almcnicoll.co.uk
  * Text Domain:       sla-course
@@ -16,7 +16,7 @@
  * Plugin constants
  */
 if(!defined('SLACOURSE_PLUGIN_VERSION'))
-	define('SLACOURSE_PLUGIN_VERSION', '0.0.12');
+	define('SLACOURSE_PLUGIN_VERSION', '0.0.13');
 if(!defined('SLACOURSE_URL'))
 	define('SLACOURSE_URL', plugin_dir_url( __FILE__ ));
 if(!defined('SLACOURSE_PATH'))
