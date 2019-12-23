@@ -2,7 +2,7 @@
 /**
  * Plugin Name:       SLA Course
  * Description:       Useful site tweaks for hosting training course materials
- * Version:           0.0.7
+ * Version:           0.0.8
  * Author:            Al McNicoll
  * Author URI:        http://almcnicoll.co.uk
  * Text Domain:       sla-course
@@ -16,7 +16,7 @@
  * Plugin constants
  */
 if(!defined('SLACOURSE_PLUGIN_VERSION'))
-	define('SLACOURSE_PLUGIN_VERSION', '0.0.7');
+	define('SLACOURSE_PLUGIN_VERSION', '0.0.8');
 if(!defined('SLACOURSE_URL'))
 	define('SLACOURSE_URL', plugin_dir_url( __FILE__ ));
 if(!defined('SLACOURSE_PATH'))
@@ -82,9 +82,7 @@ class sla_course
 	public function __construct()
     {
 
-	    add_action('wp_footer',                 array($this,'addFooterCode'));
-
-		// Admin page calls
+	    // Admin page calls
 		add_action('admin_menu',                array($this,'addAdminMenu'));
 		add_action('wp_ajax_store_admin_data',  array($this,'storeAdminData'));
 		add_action('admin_enqueue_scripts',     array($this,'addAdminScripts'));
