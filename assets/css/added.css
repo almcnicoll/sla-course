@@ -39,6 +39,7 @@ article .wp-block-file {
     display: inline;
     margin-right: 8px;
     white-space: nowrap;
+	line-height: 32px;
 }
 article .wp-block-file a {
     break-inside: avoid;
