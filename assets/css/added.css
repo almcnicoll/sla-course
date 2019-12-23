@@ -1,26 +1,27 @@
 article ul.menu {
-  margin: 0;
-  padding: 0;
-  min-width: 120px;
+	margin: 0;
+	padding: 0;
+	min-width: 120px;
 }
 
 article ul.menu li {
-  list-style-type: none;
-  min-width: 120px;
+	list-style-type: none;
+	min-width: 120px;
 }
 
 article ul.menu li a {
-  display: block;
-  background-color: #e91e63;
-  color: #fff;
-  padding: 8px;
+	display: block;
+	background-color: #e91e63;
+	color: #fff;
+	padding: 8px;
 }
 
 article ul.menu li.current-menu-item a {
-  display: block;
-  background-color: #ddd /*#9c27b0*/;
-  color: #9c27b0 /*#fff*/;
-  padding: 8px;
+	display: block;
+	background-color: #ddd /*#9c27b0*/;
+	color: #9c27b0 /*#fff*/;
+	padding: 8px;
+	font-weight: bold;
 }
 
 article .wp-block-columns, article .wp-block-themeisle-blocks-advanced-columns.has-2-columns {
